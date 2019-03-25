@@ -201,3 +201,38 @@ new UglifyJs({
 
 ## 基层模块
 ### 全局变量引入
++ 下载 `expose-loader`
++ 用法:
+  + 可以在入口文件中进行配置 `import $ from ''expose-loader?$!jquery`
+  + 也可以在 webpack.config.js 中进行配置
+  ```javascript
+  {
+      test: require.resolve('jquery'),
+      use: 'expose-loader?$'
+  }
+  ```
+  + 可以获得 `window.$`
+  + 但是有个缺点，就是需要在文件中 引入 配置，很繁琐
+
+### 全局变量注入
++ 引入 `webpack` 包
++ 我们可以使用插件，为每个模块中注入全局变量
+```javascript
+new webpack.ProvidePlugin({             // 提供插件 在每个模块中都注入 $
+    $: 'jquery'
+})
+```
+
+### 使用 cdn 引入 jquery
++ 使用 cdn 引入包，这样就可以获取 window.$ 和 $
++ 但是如果在 JS 中又引入了 jquery，webpack 就会判定为将jquery打包，因此，cdn 中的 window.$ 就会失效
++ 解决办法：
+  + 配置 externals 告诉 webpack 该模块并不需要打包
+
+### 总结
++ 引入全局模块有三种方法：
+  + `expose-loader` 暴露到 window 上
+  + `providePlugin` 给每个人提供一个 $
+  + 引入 不打包
+
+## 

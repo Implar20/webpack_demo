@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCss = require('optimize-css-assets-webpack-plugin')
 const UglifyJs = require('uglifyjs-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
     optimization: {
@@ -50,10 +51,20 @@ module.exports = {
                 }]
             },
             canPrint: true                      // 是否打印处理过程中的日志
-        })
+        }),
+        // new webpack.ProvidePlugin({             // 提供插件 在每个模块中都注入 $
+        //     $: 'jquery'
+        // })
     ],
+    externals:{
+        jquery: '$'
+    },
     module: {                           // 模块
         rules: [                        // 规则
+            // {
+            //     test: require.resolve('jquery'),
+            //     use: 'expose-loader?$'
+            // },
             {
                 test: /\.js$/,
                 use: {

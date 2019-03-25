@@ -1,4 +1,4 @@
-import $ from 'expose-loader?$!jquery'
+import $ from 'jquery'// 
 // expose-loader 暴露全局的 loader
 /* 
    pre 前面的 loader 
@@ -6,7 +6,7 @@ import $ from 'expose-loader?$!jquery'
    内联 loader 
    后置 postloader 
 */ 
-console.log(window.$)
+console.log($)
 
 // let str = require('./a')
 
